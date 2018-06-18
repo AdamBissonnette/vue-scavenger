@@ -1,0 +1,35 @@
+{
+  "name": "vue-scavenger",
+  "version": "1.0.0",
+  "description": "VUEJS front end for the scavenger codebase",
+  "dependencies": {
+    "vue" : "2.5.16",
+    "circular-dependency-plugin": "^1.1.0",
+    "classnames": "^2.2.5",
+    "css-loader": "0.23.1",
+    "html-webpack-plugin": "2.22.0",
+    "jquery": "3.1.0",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "0.13.1",
+    "webpack": "1.13.1",
+    "axios": "0.18.0",
+    "xml2js-es6-promise": "1.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MManifesto/vue-scavenger.git"
+  },
+  "keywords": [
+    "twilio",
+    "scavenger",
+    "sms",
+    "mms"
+  ],
+  "author": "Adam Bissonnette",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/MManifesto/vue-scavenger/issues"
+  },
+  "homepage": "https://github.com/MManifesto/vue-scavenger#readme"
+}
