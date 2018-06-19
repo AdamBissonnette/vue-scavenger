@@ -22,6 +22,10 @@ handlers:
   expiration: 364d
   static_dir: static
 
+- url: /assets
+  static_dir: static/assets
+  login: admin
+
 - url: /.*
   login: admin
   expiration: 1s
