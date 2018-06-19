@@ -15,3 +15,13 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+app/secrets.py*
+/assets/
+/media/
+/node_modules/
+/dist/
+/server/static/
+npm-debug.log
+/.tmp/
+/.data
