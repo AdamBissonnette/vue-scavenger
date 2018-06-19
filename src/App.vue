@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+  	<router-link to="/messages">Go to Messages</router-link>
     <router-view/>
   </div>
 </template>

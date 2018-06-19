@@ -29,6 +29,25 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: path.resolve(__dirname, 'server', 'static'),
+    publicPath: '/static/',
+    historyApiFallback: {
+      index: '/static/index.html'
+    },
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:8080',
+      },
+      '/admin/*': {
+        target: 'http://localhost:8080',
+      },
+      '/twilio': {
+        target: 'http://localhost:8080',
+      },
+    }
+  },
   module: {
     rules: [
       {

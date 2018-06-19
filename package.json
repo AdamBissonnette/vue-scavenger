@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
+    "backend": "dev_appserver.py server/app.yaml --require_indexes --storage_path=./.data",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
@@ -63,7 +64,8 @@
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
-    "axios": "0.18.0"
+    "axios": "0.18.0",
+    "moment": "2.22.2"
   },
   "engines": {
     "node": ">= 6.0.0",
