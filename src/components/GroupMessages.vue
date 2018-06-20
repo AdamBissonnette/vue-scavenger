@@ -1,5 +1,6 @@
 <template>
   <div class="group-messages">
+    <input type="text" placeholder="search" v-model="searchQuery" />
     <table border="1">
       <thead>
         <tr>
@@ -10,7 +11,7 @@
           <th>Text</th>
         </tr>
       </thead>
-      <tr v-for="message in messages">
+      <tr v-for="message in filteredBySearch">
         <td>
           {{message.sent | formatDate}}
         </td>
@@ -39,6 +40,7 @@ export default {
   name: 'Messages',
   data () {
     return {
+      searchQuery:"",
       messages: [{
             "uid": "db5c08222ba14539b509a3a772512a92",
             "text": "Earlier",
@@ -58,14 +60,14 @@ export default {
             "sender": null}]
     }
   },
-  // computed: {
-  //   sortedMessages: function() {
-  //     function compare(b, a) {
-  //       return new Date(a.sent) - new Date(b.sent);
-  //     }
-  //     return this.messages.sort(compare);
-  //   }
-  // },
+  computed: {
+    filteredBySearch: function () {
+      return this.messages.filter((message) => (
+        message.text.replace(' FC','').toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1
+        )
+      )
+    }
+  },
   mounted() {
     axios.get('/api/messages/group/' + this.$route.params.uid + "/")
       .then(response => {

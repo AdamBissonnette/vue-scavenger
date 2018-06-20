@@ -1,6 +1,8 @@
 <template>
   <div class="groups">
 
+    <input type="text" placeholder="User" v-model="userQuery" />
+
     <h2>Groups</h2>
     <table border="1">
       <thead>
@@ -46,7 +48,7 @@
           <th></th>
         </tr>
       </thead>
-      <tr v-for="user in users">
+      <tr v-for="user in filteredUsersBySearch">
         <td>
           {{user.user_uid}}
         </td>
@@ -72,7 +74,8 @@ export default {
   data () {
     return {
       msg: "I feel like I get this - here are the messages:",
-      users: [],
+      users: [{"user_uid" : "Dave"}],
+      userQuery: "",
       groups: [
         {
             "uid": "38F6FC",
@@ -109,8 +112,20 @@ export default {
       function compare(b, a) {
         return new Date(a.messaged_at) - new Date(b.messaged_at);
       }
-      return this.groups.sort(compare);
-    }
+      return this.filteredGroupsBySearch.sort(compare);
+    },
+    filteredUsersBySearch: function () {
+      return this.users.filter((user) => (
+         user.user_uid.toLowerCase().indexOf(this.userQuery.toLowerCase()) !== -1
+        )
+      )
+    },
+    filteredGroupsBySearch: function () {
+      return this.groups.filter((group) => (
+         group.user_keys[0].toLowerCase().indexOf(this.userQuery.toLowerCase()) !== -1
+        )
+      )
+    },
   },
   mounted() {
     axios.get('/api/groups/')

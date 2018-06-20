@@ -1,5 +1,6 @@
 <template>
   <div class="user-messages">
+    <input type="text" placeholder="text" v-model="textQuery" />
     <table border="1">
       <thead>
         <tr>
@@ -10,7 +11,7 @@
           <th>Text</th>
         </tr>
       </thead>
-      <tr v-for="message in messages">
+      <tr v-for="message in filteredBySearch">
         <td>
           {{message.sent | formatDate}}
         </td>
@@ -39,6 +40,8 @@ export default {
   name: 'Messages',
   data () {
     return {
+      textQuery: "",
+      senderQuery: "",
       messages: [{
             "uid": "db5c08222ba14539b509a3a772512a92",
             "text": "Earlier",
@@ -47,7 +50,7 @@ export default {
             "receiver": "messenger:2075608205815078",
             "media_url": null,
             "sent": "2018-06-07T00:28:58.677190",
-            "sender": null}, 
+            "sender": "bob"}, 
             {"uid": "ab5c08222ba14539b509a3a772512a92",
             "text": "Later",
             "group_uid": "E21293",
@@ -55,17 +58,18 @@ export default {
             "receiver": "messenger:2075608205815078",
             "media_url": null,
             "sent": "2018-07-07T00:28:58.677190",
-            "sender": null}]
+            "sender": "Dave"}]
     }
   },
-  // computed: {
-  //   sortedMessages: function() {
-  //     function compare(b, a) {
-  //       return new Date(a.sent) - new Date(b.sent);
-  //     }
-  //     return this.messages.sort(compare);
-  //   }
-  // },
+  computed: {
+    filteredBySearch: function () {
+      return this.messages.filter((message) => (
+        message.text.toLowerCase().indexOf(this.textQuery.toLowerCase()) !== -1 &&
+         message.sender.toLowerCase().indexOf(this.senderQuery.toLowerCase()) !== -1
+        )
+      )
+    }
+  },
   mounted() {
     axios.get('/api/messages/user/' + this.$route.params.uid + "/")
       .then(response => {
