@@ -1,0 +1,87 @@
+<template>
+  <div class="explorer">
+    <lginput id="sender" label="Sender" :value.sync="from" type="text"></lginput>
+    <lginput id="receiver" label="Receiver" :value.sync="to" type="text"></lginput>
+    <lginput id="Media_Url" label="Media Url" :value.sync="media" type="text"></lginput>
+    <lginput id="Text" label="Text" :value.sync="text"></lginput>
+    <button @click="submit">Send</button>
+
+    <table border="1" class="messages">
+      <thead>
+        <tr>
+          <th>Sender</th>
+          <th>Receiver</th>
+          <th>Text</th>
+          <th>Media</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="message in messages">
+          <td>{{message.sender}}</td>
+          <td>{{message.receiver}}</td>
+          <td>{{message.text}}</td>
+          <td>{{message.image}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script>
+import Input from '@/components/sub-components/Input'
+import axios from 'axios'
+export default {
+  name: "Explorer",
+  data() {
+    return {
+      from: "tester",
+      to: "server",
+      text: "",
+      media: "",
+      messages: []
+    }
+  },
+  methods: {
+    submit: function() {
+      var formData = new FormData()
+
+      formData.set('From', this.from)
+      formData.set('To', this.to)
+      formData.set('Body', this.text)
+
+      if (this.media !== "")
+      {
+        formData.set("MediaUrl0", this.media)
+        formData.set("NumMedia", 1)
+      }
+
+      this.addMessage(this.to, this.from, this.text, this.media)
+
+      axios({
+        method: "post",
+        url: "/twilio",
+        data: formData,
+        config: { headers: {'Content-Type': 'multipart/form-data'}}
+      })
+      .then(response => {
+        var xmlDoc = new DOMParser().parseFromString(response.data, "text/xml")
+        var receiver = xmlDoc.getElementsByTagName("Message")[0].getAttribute("to")
+        var body = xmlDoc.getElementsByTagName("Body")[0].innerHTML
+        var media = xmlDoc.getElementsByTagName("MediaUrl0")[0]
+        this.addMessage("", receiver, body, (typeof media !== "undefined"?media.innerHTML:""))
+      })
+    },
+    addMessage: function (from, to, body, media){
+      this.messages.unshift({
+        sender: from,
+        receiver: to,
+        text: body,
+        image: media
+      })
+    }
+  },
+  components: {
+    'lginput': Input
+  }
+}
+</script>

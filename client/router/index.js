@@ -5,6 +5,7 @@ import StoryClues from '@/components/StoryClues'
 import Messages from '@/components/Messages'
 import Group from '@/components/GroupMessages'
 import User from '@/components/UserMessages'
+import Explorer from '@/components/Explorer'
 
 Vue.use(Router)
 
@@ -32,9 +33,15 @@ export default new Router({
       props: true
     },
     {
-    	path: '/messages/user/:uid/',
-    	name: 'User',
-    	component: User,
+      path: '/messages/user/:uid/',
+      name: 'User',
+      component: User,
+      props: true
+    },
+    {
+    	path: '/explorer',
+    	name: 'explorer',
+    	component: Explorer,
       props: true
     }
   ]

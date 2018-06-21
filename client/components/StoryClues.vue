@@ -1,35 +1,40 @@
 <template>
   <div class="story">
     <h1>{{story.uid}}</h1>
+    <div class="story-config">
+      <h2>Story Config</h2>
+      <lginput id="story_end_message" label="End Message" :value.sync="story.end_message"></lginput>
+      <lginput id="story_default_hint" label="Default Hint" :value.sync="story.default_hint"></lginput>
 
-    <lginput id="story_end_message" label="End Message" :value.sync="story.end_message"></lginput>
-    <lginput id="story_default_hint" label="Default Hint" :value.sync="story.default_hint"></lginput>
-
-    <div class="controls">
-      <button @click="saveStory()">Save</button>
-      <button v-show="false" @click="delStory()">Delete</button>
+      <div class="controls">
+        <button @click="saveStory()">Save</button>
+        <button v-show="false" @click="delStory()">Delete</button>
+      </div>
     </div>
 
-    <h2>Clues</h2>
-    <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
-    <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
-    <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
-
-    <button @click="saveClue">Save</button>
-
     <div class="clues">
+      <h2>Clues</h2>
+
+      <h3>Add Clue</h3>
+      <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
+      <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
+      <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
+      <button @click="saveClue">Save</button>
+
+      <h3>Clue List</h3>
       <ul>
-        <li v-for="(clue, index) in story.clues">
-          {{clue}} <button @click="editClue(index)">Edit</button>
+        <li v-for="(clue, index) in story.clues">{{clue}} <button @click="editClue(index)">Edit</button>
           <button @click="delClue(index)">Delete</button>
         </li>
       </ul>
-    </div>  
+    </div>
+
   </div>
 </template>
 
 <script>
-import Input from '@/components/fields/Input'
+import axios from 'axios'
+import Input from '@/components/sub-components/Input'
 export default {
   name: "StoryClues",
   data () {
