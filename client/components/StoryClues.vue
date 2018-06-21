@@ -2,15 +2,8 @@
   <div class="story">
     <h1>{{story.uid}}</h1>
 
-    <div class="form_group">
-      <label :for="story.uid + '_end_message'">End Message</label>
-      <textarea :id="story.uid + '_end_message'" v-model="story.end_message"></textarea>
-    </div>
-
-    <div class="form_group">
-      <label :for="story.uid + '_default_hint'">Default Hint</label>
-      <textarea :id="story.uid + '_default_hint'" v-model="story.default_hint"></textarea>
-    </div>
+    <lginput id="story_end_message" label="End Message" :value.sync="story.end_message"></lginput>
+    <lginput id="story_default_hint" label="Default Hint" :value.sync="story.default_hint"></lginput>
 
     <div class="controls">
       <button @click="saveStory()">Save</button>
@@ -44,6 +37,7 @@
 </template>
 
 <script>
+import Input from '@/components/fields/Input'
 export default {
   name: "StoryClues",
   data () {
@@ -126,6 +120,9 @@ export default {
         ///EEEEEEE
       })
     }
+  },
+  components: {
+    'lginput': Input
   }
 }
 </script>
