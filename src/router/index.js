@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Stories from '@/components/Stories'
 import Messages from '@/components/Messages'
 import Group from '@/components/GroupMessages'
 import User from '@/components/UserMessages'
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Stories',
+      component: Stories
     },
     {
       path: '/messages',

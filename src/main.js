@@ -7,7 +7,6 @@ import moment from 'moment'
 
 Vue.config.productionTip = false
 
-
 Vue.filter('formatDate', function(value) {
   if (value) {
     return moment(String(value)).subtract(6, 'hours').format('DD-MMM-YY hh:mm:ss')

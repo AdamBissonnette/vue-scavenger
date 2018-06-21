@@ -25,3 +25,4 @@ app/secrets.py*
 npm-debug.log
 /.tmp/
 /.data
+/.data/*

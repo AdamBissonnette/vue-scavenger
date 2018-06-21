@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-  	<router-link to="/messages">Go to Messages</router-link>
+  	<router-link to="/">Stories</router-link>
+  	<router-link to="/messages">Messages</router-link>
     <router-view/>
   </div>
 </template>
