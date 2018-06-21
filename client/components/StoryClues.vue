@@ -11,18 +11,10 @@
     </div>
 
     <h2>Clues</h2>
-    <div class="form_group">
-      <label for="clueName">Name</label>
-      <input type="text" id="clueName" v-model="clueName" />
-    </div>
-    <div class="form_group">
-      <label for="clueText">Text</label>
-      <textarea type="text" id="clueText" v-model="clueText"></textarea>
-    </div>
-    <div class="form_group">
-      <label for="clueHint">Hint</label>
-      <textarea type="text" id="clueHint" v-model="clueHint"></textarea>
-    </div>
+    <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
+    <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
+    <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
+
     <button @click="saveClue">Save</button>
 
     <div class="clues">
