@@ -50,6 +50,13 @@ export default {
   },
   methods: {
     addStory: function() {
+      axios.put(`http://jsonplaceholder.typicode.com/posts`, {
+        body: this.postBody
+      })
+      .then(response => {})
+      .catch(e => {
+        this.errors.push(e)
+      })
       this.stories.push({
             "clues": [],
             "uid": this.storyName,
