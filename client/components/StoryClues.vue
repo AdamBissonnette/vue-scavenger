@@ -1,32 +1,53 @@
 <template>
-  <div class="story">
-    <h1>{{story.uid}}</h1>
-    <div class="story-config">
-      <h2>Story Config</h2>
-      <lginput id="story_end_message" label="End Message" :value.sync="story.end_message"></lginput>
-      <lginput id="story_default_hint" label="Default Hint" :value.sync="story.default_hint"></lginput>
-
-      <div class="controls">
-        <button @click="saveStory()">Save</button>
-        <button v-show="false" @click="delStory()">Delete</button>
+  <div class="ui codes stackable container grid">
+    <div class="one column row">
+      <div class="column">
+        <h2>STORY : {{story.uid}}</h2>
+        <div class="ui styled fluid accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Story Settings
+          </div>
+          <div class="content">
+            <div class="ui form">
+              <lginput id="story_end_message" label="End Message" :value.sync="story.end_message"></lginput>
+              <lginput id="story_default_hint" label="Default Hint" :value.sync="story.default_hint"></lginput>
+              <button class="ui button" @click="saveStory()">Save</button>
+              <button class="ui button" v-show="false" @click="delStory()">Delete</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="clues">
-      <h2>Clues</h2>
-
-      <h3>Add Clue</h3>
-      <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
-      <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
-      <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
-      <button @click="saveClue">Save</button>
-
+    <div class="four wide column">
+      <h3>Add / Edit Clue</h3>
+      <div class="form ui">
+        <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
+        <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
+        <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
+        <button class="ui button" @click="saveClue">Save</button>
+      </div>
+    </div>
+    <div class="twelve wide column">
       <h3>Clue List</h3>
-      <ul>
-        <li v-for="(clue, index) in story.clues">{{clue}} <button @click="editClue(index)">Edit</button>
-          <button @click="delClue(index)">Delete</button>
-        </li>
-      </ul>
+      <table class="ui red celled fixed table">
+        <thead>
+          <tr>
+            <th>Clue</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(clue, index) in story.clues">
+            <td>{{clue}}</td>
+            <td>
+              <button class="ui button" @click="editClue(index)">Edit</button>
+              <button class="ui button" @click="delClue(index)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>

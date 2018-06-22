@@ -1,5 +1,5 @@
 <template>
-  <div class="user-messages ui stories container grid">
+  <div class="user-messages ui stackable stackable stories container grid">
     <div class="one column row">
       <div class="column">
         <h2>User Messages</h2>

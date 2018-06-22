@@ -1,5 +1,5 @@
 <template>
-  <div class="group-messages ui stories container grid">
+  <div class="group-messages stackable ui stories container grid">
     <div class="one column row">
       <div class="column">
         <h2>Group Messages</h2>

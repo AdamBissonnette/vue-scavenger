@@ -1,5 +1,5 @@
 <template>
-  <div class="ui stories container grid">
+  <div class="ui stories stackable container grid">
     <div class="one column row">
       <div class="column">
         <h2>Stories</h2>

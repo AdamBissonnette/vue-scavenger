@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="ui menu">
+    <div class="ui stackable menu">
       <div class="ui container">
         <div class="header item">
           Vue Scavenger

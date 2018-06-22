@@ -1,5 +1,5 @@
 <template>
-  <div class="ui explorer container grid">
+  <div class="ui explorer stackable container grid">
     <div class="one column row">
       <div class="column">
         <h2>Explorer</h2>

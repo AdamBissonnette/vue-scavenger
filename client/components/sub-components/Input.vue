@@ -5,7 +5,7 @@
         <input :id="id" type="text" :value="value" @input="$emit('update:value', $event.target.value)" />
       </template>
       <template v-else>
-        <textarea :id="id" :value="value" @input="$emit('update:value', $event.target.value)"></textarea>
+        <textarea :id="id" :value="value" rows="2" @input="$emit('update:value', $event.target.value)"></textarea>
       </template>
   </div>
 </template>
