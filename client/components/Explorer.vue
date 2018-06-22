@@ -1,10 +1,7 @@
 <template>
   <div class="ui explorer stackable container grid">
-    <div class="one column row">
-      <div class="column">
-        <h2>Explorer</h2>
-      </div>
-    </div>
+    <lgheader title="Explorer"></lgheader>
+
     <div class="four wide column">
       <h3>Controls</h3>
       <div class="ui form">
@@ -40,8 +37,6 @@
 </template>
 
 <script>
-import Input from '@/components/sub-components/Input'
-import axios from 'axios'
 export default {
   name: "Explorer",
   data() {
@@ -91,9 +86,6 @@ export default {
         image: media
       })
     }
-  },
-  components: {
-    'lginput': Input
   }
 }
 </script>

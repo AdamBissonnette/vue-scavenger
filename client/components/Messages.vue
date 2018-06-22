@@ -1,10 +1,7 @@
 <template>
   <div class="messages stackable ui stories container grid">
-    <div class="one column row">
-      <div class="column">
-        <h2>Messages</h2>
-      </div>
-    </div>
+    <lgheader title="Messages"></lgheader>
+
     <div class="four wide column">
       <h3>Filters</h3>
       <div class="ui form">
@@ -79,8 +76,6 @@
   </div>
 </template>
 <script>
-import Input from '@/components/sub-components/Input'
-import axios from 'axios'
 export default {
   name: 'Messages',
   data () {
@@ -147,9 +142,6 @@ export default {
       .then(response => {
         this.users = response.data.data;
       })
-  },
-  components: {
-    "lginput" : Input
   }
 }
 </script>

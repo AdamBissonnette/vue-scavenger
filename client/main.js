@@ -4,9 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import moment from 'moment'
+import Input from '@/components/sub-components/Input'
+import Header from '@/components/sub-components/Header'
 
 require('../node_modules/semantic-ui-css/semantic.min.css')
+require('../node_modules/semantic-ui-css/semantic.min.js')
 
+Vue.component('lginput', Input)
+Vue.component('lgheader', Header)
 Vue.config.productionTip = false
 
 Vue.filter('formatDate', function(value) {

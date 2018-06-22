@@ -1,10 +1,7 @@
 <template>
   <div class="ui codes stackable container grid">
-    <div class="one column row">
-      <div class="column">
-        <h2>Codes</h2>
-      </div>
-    </div>
+    <lgheader title="Codes"></lgheader>
+
     <div class="four wide column">
       <h3>Add Code</h3>
       <div class="ui form">
@@ -62,8 +59,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Input from '@/components/sub-components/Input'
 export default {
   data() {
     return {
@@ -83,9 +78,6 @@ export default {
     addCode: function() {
       this.codes.unshift({story_uid: this.story, word_string: "", used: false, single_use: true})
     }
-  },
-  components: {
-    'lginput': Input
   }
 }
 </script>

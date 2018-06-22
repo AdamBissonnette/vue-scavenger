@@ -1,10 +1,6 @@
 <template>
   <div class="ui stories stackable container grid">
-    <div class="one column row">
-      <div class="column">
-        <h2>Stories</h2>
-      </div>
-    </div>
+    <lgheader title="Stories"></lgheader>
     <div class="four wide column">
       <h3>Add a Story</h3>
       <div class="ui form">
@@ -41,8 +37,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Input from '@/components/sub-components/Input'
 export default {
   name: 'Stories',
   data () {
@@ -71,9 +65,6 @@ export default {
         this.errors.push(e)
       })
     }
-  },
-  components: {
-    "lginput" : Input
   }
 }
 </script>

@@ -1,9 +1,7 @@
 <template>
   <div class="ui codes stackable container grid">
-    <div class="one column row">
-      <div class="column">
-        <h2>STORY : {{story.uid}}</h2>
-        <div class="ui styled fluid accordion">
+    <lgheader :title="'STORY : ' + story.uid">
+      <div class="ui styled fluid accordion">
           <div class="title">
             <i class="dropdown icon"></i>
             Story Settings
@@ -17,21 +15,11 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    </lgheader>
 
-    <div class="four wide column">
-      <h3>Add / Edit Clue</h3>
-      <div class="form ui">
-        <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
-        <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
-        <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
-        <button class="ui button" @click="saveClue">Save</button>
-      </div>
-    </div>
-    <div class="twelve wide column">
+    <div class="six wide column">
       <h3>Clue List</h3>
-      <table class="ui red celled fixed table">
+      <table class="ui red celled table">
         <thead>
           <tr>
             <th>Clue</th>
@@ -49,13 +37,20 @@
         </tbody>
       </table>
     </div>
+    <div class="ten wide column">
+      <h3>Add / Edit Clue</h3>
+      <div class="form ui">
+        <lginput id="clueName" label="Name" :value.sync="clueName" type="text"></lginput>
+        <lginput id="clueText" label="Text" :value.sync="clueText"></lginput>
+        <lginput id="clueHint" label="Hint" :value.sync="clueHint"></lginput>
+        <button class="ui button" @click="saveClue">Save</button>
+      </div>      
+    </div>
 
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import Input from '@/components/sub-components/Input'
 export default {
   name: "StoryClues",
   data () {
@@ -74,6 +69,8 @@ export default {
     .then(response => {
       this.story = response.data.data
     })
+    $('.ui.accordion')
+      .accordion()
   },
   methods: {
     saveClue: function() {
@@ -138,9 +135,6 @@ export default {
         ///EEEEEEE
       })
     }
-  },
-  components: {
-    'lginput': Input
   }
 }
 </script>

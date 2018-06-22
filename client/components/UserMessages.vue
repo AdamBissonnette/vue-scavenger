@@ -1,10 +1,6 @@
 <template>
   <div class="user-messages ui stackable stackable stories container grid">
-    <div class="one column row">
-      <div class="column">
-        <h2>User Messages</h2>
-      </div>
-    </div>
+    <lgheader title="User Messages"></lgheader>
 
     <div class="four wide column">
       <h3>Filters</h3>
@@ -48,10 +44,8 @@
       </table>
     </div>
   </div>
-</template>1
+</template>
 <script>
-import Input from '@/components/sub-components/Input'
-import axios from 'axios'
 export default {
   name: 'Messages',
   data () {
@@ -91,9 +85,6 @@ export default {
       .then(response => {
         this.messages = response.data.data;
       })
-  },
-  components: {
-    "lginput" : Input
   }
 }
 </script>
