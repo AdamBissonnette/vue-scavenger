@@ -10,6 +10,7 @@
     </div>
     <div class="twelve wide column">
       <h3>List of Stories</h3>
+      <!-- <vue-good-table :columns="columns" :rows="stories" styleClass="ui red celled fixed table"></vue-good-table> -->
       <table class="ui red celled fixed table">
         <thead>
           <tr>
@@ -42,7 +43,19 @@ export default {
   data () {
     return {
       storyName: '',
-      stories: []
+      stories: [],
+      columns: [{
+        label: 'Name',
+        field: 'uid',
+        filterOptions: {
+          enabled: true, // enable filter for this column
+          placeholder: 'Filter This Thing', // placeholder for filter input
+          filterValue: '', // initial populated value for this filter
+          // filterDropdownItems: [], // dropdown (with selected values) instead of text input
+          // filterFn: this.columnFilterFn, //custom filter function that
+          // trigger: 'enter', //only trigger on enter not on keyup 
+        }
+      }]
     }
   },
   mounted() {
