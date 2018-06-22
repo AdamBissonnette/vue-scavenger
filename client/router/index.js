@@ -6,6 +6,7 @@ import Messages from '@/components/Messages'
 import Group from '@/components/GroupMessages'
 import User from '@/components/UserMessages'
 import Explorer from '@/components/Explorer'
+import Codes from '@/components/Codes'
 
 Vue.use(Router)
 
@@ -39,10 +40,14 @@ export default new Router({
       props: true
     },
     {
-    	path: '/explorer',
-    	name: 'explorer',
-    	component: Explorer,
-      props: true
+      path: '/explorer',
+      name: 'explorer',
+      component: Explorer
+    },
+    {
+    	path: '/codes',
+    	name: 'codes',
+    	component: Codes
     }
   ]
 })
