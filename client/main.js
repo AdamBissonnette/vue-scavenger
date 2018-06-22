@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import moment from 'moment'
 
+require('../node_modules/semantic-ui-css/semantic.min.css')
+
 Vue.config.productionTip = false
 
 Vue.filter('formatDate', function(value) {

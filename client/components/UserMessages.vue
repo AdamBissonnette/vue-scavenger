@@ -1,41 +1,56 @@
 <template>
-  <div class="user-messages">
-    <input type="text" placeholder="text" v-model="textQuery" />
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Story</th>
-          <th>Sender</th>
-          <th>Receiver</th>
-          <th>Text</th>
-        </tr>
-      </thead>
-      <tr v-for="message in filteredBySearch">
-        <td>
-          {{message.sent | formatDate}}
-        </td>
-        <td>
-          {{message.story_uid}}
-        </td>
-        <td>
-          {{message.sender}}
-        </td>
-        <td>
-          {{message.receiver}}
-        </td>
-        <td>
-          {{message.text}}
+  <div class="user-messages ui stories container grid">
+    <div class="one column row">
+      <div class="column">
+        <h2>User Messages</h2>
+      </div>
+    </div>
 
-          <a :href="message.media_url" target="_blank" rel="noopener" v-if="message.media_url != ''">
-            <img :src="message.media_url" />
-          </a>
-        </td>
-      </tr>
-    </table>
+    <div class="four wide column">
+      <h3>Filters</h3>
+      <div class="ui form">
+        <lginput :value.sync="textQuery" id="query" type="text" label="Text Search"></lginput>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      <h3>Messages</h3>
+      <table class="ui red celled fixed table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Story</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+        <tr v-for="message in filteredBySearch">
+          <td>
+            {{message.sent | formatDate}}
+          </td>
+          <td>
+            {{message.story_uid}}
+          </td>
+          <td>
+            {{message.sender}}
+          </td>
+          <td>
+            {{message.receiver}}
+          </td>
+          <td>
+            {{message.text}}
+
+            <a :href="message.media_url" target="_blank" rel="noopener" v-if="message.media_url != ''">
+              <img :src="message.media_url" />
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-</template>
+</template>1
 <script>
+import Input from '@/components/sub-components/Input'
 import axios from 'axios'
 export default {
   name: 'Messages',
@@ -76,6 +91,9 @@ export default {
       .then(response => {
         this.messages = response.data.data;
       })
+  },
+  components: {
+    "lginput" : Input
   }
 }
 </script>

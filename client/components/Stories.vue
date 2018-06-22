@@ -1,21 +1,48 @@
 <template>
-  <div class="stories">
-    <h2>Stories</h2>
-    <label for="addStoryName">Name</label>
-    <input type="text" id="addStoryName" v-model="storyName" />
-    <button @click="addStory">Add</button>
-
-    <ul>
-      <li class="story" v-for="(story, index) in stories">
-        <strong>{{story.uid}}</strong>
-        <router-link :to="{ name: 'StoryClues', 'params': {uid: story.uid}}">Edit</router-link>
-      </li>
-    </ul>
+  <div class="ui stories container grid">
+    <div class="one column row">
+      <div class="column">
+        <h2>Stories</h2>
+      </div>
+    </div>
+    <div class="four wide column">
+      <h3>Add a Story</h3>
+      <div class="ui form">
+        <lginput :value.sync="storyName" id="storyName" label="Name" type="text"></lginput>
+        <button class="ui button" @click="addStory">Add</button>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      <h3>List of Stories</h3>
+      <table class="ui red celled fixed table">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Controls
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="story item" v-for="(story, index) in stories">
+            <td>
+              {{story.uid}}
+            </td>
+            <td>
+              <router-link class="ui button" :to="{ name: 'StoryClues', 'params': {uid: story.uid}}">Edit</router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Input from '@/components/sub-components/Input'
 export default {
   name: 'Stories',
   data () {
@@ -45,9 +72,9 @@ export default {
       })
     }
   },
-  // components: {
-  //   "clue" : Clue
-  // }
+  components: {
+    "lginput" : Input
+  }
 }
 </script>
 

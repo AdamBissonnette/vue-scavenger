@@ -1,10 +1,20 @@
 <template>
   <div id="app">
-  	<router-link to="/">Stories</router-link>
-    <router-link to="/messages">Messages</router-link>
-    <router-link to="/explorer">Explorer</router-link>
-  	<router-link to="/codes">Codes</router-link>
-    <router-view/>
+    <div class="ui menu">
+      <div class="ui container">
+        <div class="header item">
+          Vue Scavenger
+        </div>
+        <router-link to="/" class="item">Stories</router-link>
+        <router-link to="/messages" class="item">Messages</router-link>
+        <router-link to="/explorer" class="item">Explorer</router-link>
+        <router-link to="/codes" class="item">Codes</router-link>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -15,10 +25,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+.wrapper .ui.container.grid {
+    padding: 30px 0;
 }
 </style>

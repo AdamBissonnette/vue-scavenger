@@ -1,80 +1,90 @@
 <template>
-  <div class="groups">
-
-    <input type="text" placeholder="User" v-model="userQuery" />
-
-    <h2>Groups</h2>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Current Clue</th>
-          <th>User</th>
-          <th>Last Message</th>
-          <th>Date Started</th>
-          <th>Date Completed</th>
-          <th></th>
+  <div class="messages ui stories container grid">
+    <div class="one column row">
+      <div class="column">
+        <h2>Messages</h2>
+      </div>
+    </div>
+    <div class="four wide column">
+      <h3>Filters</h3>
+      <div class="ui form">
+        <lginput :value.sync="userQuery" id="query" type="text" label="User Search"></lginput>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      <h3>Groups</h3>
+      <table class="ui red celled fixed table">
+        <thead>
+          <tr>
+            <th>Current Clue</th>
+            <th>User</th>
+            <th>Last Message</th>
+            <th>Date Started</th>
+            <th>Date Completed</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+        <tr v-for="group in sortedGroups">
+          <td>
+            {{group.clue_uid}}
+          </td>
+          <td>
+            <div v-for="key in group.user_keys">{{key}}</div>
+          </td>
+          <td>
+            {{group.messaged_at | formatDate}}
+          </td>
+          <td>
+            {{group.created_at | formatDate}}
+          </td>
+          <td>
+            {{group.completed_at | formatDate}}
+          </td>
+          <td>
+            <router-link class="ui button" :to="{ name: 'Group', 'params': {uid: group.uid}}">Transcript</router-link>
+          </td>
         </tr>
-      </thead>
-      <tr v-for="group in sortedGroups">
-        <td>
-          {{group.clue_uid}}
-        </td>
-        <td>
-          <div v-for="key in group.user_keys">{{key}}</div>
-        </td>
-        <td>
-          {{group.messaged_at | formatDate}}
-        </td>
-        <td>
-          {{group.created_at | formatDate}}
-        </td>
-        <td>
-          {{group.completed_at | formatDate}}
-        </td>
-        <td>
-          <router-link :to="{ name: 'Group', 'params': {uid: group.uid}}">Transcript</router-link>
-        </td>
-      </tr>
-    </table>
+      </table>
 
-    <h2>Users</h2>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Group ID</th>
-          <th>Last Message</th>
-          <th>Date Started</th>
-          <th></th>
+      <h3>Users</h3>
+      <table class="ui blue celled fixed table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Group ID</th>
+            <th>Last Message</th>
+            <th>Date Started</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+        <tr v-for="user in filteredUsersBySearch">
+          <td>
+            {{user.user_uid}}
+          </td>
+          <td>
+            {{user.group_uid}}
+          </td>
+          <td>
+            {{user.messaged_at | formatDate}}
+          </td>
+          <td>
+            {{user.registration_date | formatDate}}
+          </td>
+          <td>
+            <router-link class="ui button" :to="{ name: 'User', 'params': {uid: user.user_uid}}">Transcript</router-link>
+          </td>
         </tr>
-      </thead>
-      <tr v-for="user in filteredUsersBySearch">
-        <td>
-          {{user.user_uid}}
-        </td>
-        <td>
-          {{user.group_uid}}
-        </td>
-        <td>
-          {{user.messaged_at | formatDate}}
-        </td>
-        <td>
-          {{user.registration_date | formatDate}}
-        </td>
-        <td>
-          <router-link :to="{ name: 'User', 'params': {uid: user.user_uid}}">Transcript</router-link>
-        </td>
-      </tr>
-    </table>
+      </table>
+    </div>
   </div>
 </template>
 <script>
+import Input from '@/components/sub-components/Input'
 import axios from 'axios'
 export default {
   name: 'Messages',
   data () {
     return {
-      msg: "I feel like I get this - here are the messages:",
       users: [{"user_uid" : "Dave"}],
       userQuery: "",
       groups: [
@@ -137,9 +147,9 @@ export default {
       .then(response => {
         this.users = response.data.data;
       })
+  },
+  components: {
+    "lginput" : Input
   }
 }
 </script>
-
-<style scoped>
-</style>

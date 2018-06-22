@@ -1,5 +1,5 @@
 <template>
-  <div class="form_group">
+  <div class="field">
     <label :for="id">{{label}}</label>
       <template v-if="type === 'text'">
         <input :id="id" type="text" :value="value" @input="$emit('update:value', $event.target.value)" />

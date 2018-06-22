@@ -1,29 +1,41 @@
 <template>
-  <div class="explorer">
-    <lginput id="sender" label="Sender" :value.sync="from" type="text"></lginput>
-    <lginput id="receiver" label="Receiver" :value.sync="to" type="text"></lginput>
-    <lginput id="Media_Url" label="Media Url" :value.sync="media" type="text"></lginput>
-    <lginput id="Text" label="Text" :value.sync="text"></lginput>
-    <button @click="submit">Send</button>
-
-    <table border="1" class="messages">
-      <thead>
-        <tr>
-          <th>Sender</th>
-          <th>Receiver</th>
-          <th>Text</th>
-          <th>Media</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="message in messages">
-          <td>{{message.sender}}</td>
-          <td>{{message.receiver}}</td>
-          <td>{{message.text}}</td>
-          <td>{{message.image}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="ui explorer container grid">
+    <div class="one column row">
+      <div class="column">
+        <h2>Explorer</h2>
+      </div>
+    </div>
+    <div class="four wide column">
+      <h3>Controls</h3>
+      <div class="ui form">
+        <lginput id="sender" label="Sender" :value.sync="from" type="text"></lginput>
+        <lginput id="receiver" label="Receiver" :value.sync="to" type="text"></lginput>
+        <lginput id="Media_Url" label="Media Url" :value.sync="media" type="text"></lginput>
+        <lginput id="Text" label="Text" :value.sync="text"></lginput>
+        <button class="ui button" @click="submit">Send</button>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      <h3>Exploration Results</h3>
+      <table class="ui red celled fixed table">
+        <thead>
+          <tr>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Text</th>
+            <th>Media</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="message in messages">
+            <td>{{message.sender}}</td>
+            <td>{{message.receiver}}</td>
+            <td>{{message.text}}</td>
+            <td>{{message.image}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
