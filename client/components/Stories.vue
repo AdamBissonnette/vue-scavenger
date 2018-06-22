@@ -85,4 +85,5 @@ export default {
 <style>
 label {display: block; margin: 10px 0;}
 p+ul {margin: 0 0 10px;}
+input#storyName {text-transform: uppercase;}
 </style>
