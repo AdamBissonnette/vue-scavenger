@@ -31,7 +31,8 @@ class Message(ndb.Model):
 
     @classmethod
     def for_user(cls, user_uid, limit=1000):
-        return cls.query(Message.sender == user_uid).order(-Message.sent).fetch(limit=limit)
+
+        return cls.query(ndb.OR(Message.sender == user_uid, Message.receiver == user_uid)).order(-Message.sent).fetch(limit=limit)
 
     def _pre_put_hook(self):
         if not self.key:
