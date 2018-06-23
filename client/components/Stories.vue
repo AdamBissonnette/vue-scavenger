@@ -29,6 +29,7 @@
             </td>
             <td>
               <router-link class="ui button" :to="{ name: 'StoryClues', 'params': {uid: story.uid}}">Edit</router-link>
+              <button class="ui icon button" @click="delStory(index)"><i class="icon trash"></i></button>
             </td>
           </tr>
         </tbody>
@@ -77,6 +78,22 @@ export default {
       .catch(e => {
         this.errors.push(e)
       })
+    },
+    delStory: function(index) {
+      this.$dialog.confirm("If you delete this story, it'll be gone forever.", {
+        loader: true
+          })
+          .then((dialog) => {
+              axios.delete(`/api/stories/` + this.stories[index].uid)
+              .then(response => {
+                this.stories.splice(index, 1)
+                dialog.loading(false) // stops the proceed button's loader
+                dialog.close() // stops the loader and close the dialog
+              })
+          })
+          .catch(() => {
+              console.log('Delete aborted');
+          });
     }
   }
 }
