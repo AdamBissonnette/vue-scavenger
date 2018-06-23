@@ -80,37 +80,9 @@ export default {
   name: 'Messages',
   data () {
     return {
-      users: [{"user_uid" : "Dave"}],
+      users: [],
       userQuery: "",
-      groups: [
-        {
-            "uid": "38F6FC",
-            "clue_uid": "TEST:START",
-            "data": {},
-            "user_keys": [
-                "testing"
-            ],
-            "word_string": "assistant pen bank",
-            "messaged_at": "2018-06-19T19:16:29.852822",
-            "story_uid": "TEST",
-            "completed_at": "2018-06-19T19:16:29.820526",
-            "hints_used": 0,
-            "created_at": "2017-05-27T17:01:51.180556"
-        },
-        {
-            "uid": "5BDE77",
-            "clue_uid": "TEST:START",
-            "data": {},
-            "user_keys": [
-                "testing"
-            ],
-            "word_string": null,
-            "messaged_at": null,
-            "story_uid": "TEST",
-            "completed_at": null,
-            "hints_used": 0,
-            "created_at": "2017-05-27T16:28:56.800255"
-        }]
+      groups: []
     }
   },
   computed: {

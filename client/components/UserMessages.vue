@@ -52,23 +52,7 @@ export default {
     return {
       textQuery: "",
       senderQuery: "",
-      messages: [{
-            "uid": "db5c08222ba14539b509a3a772512a92",
-            "text": "Earlier",
-            "group_uid": "E21293",
-            "story_uid": "IOTLANG",
-            "receiver": "messenger:2075608205815078",
-            "media_url": null,
-            "sent": "2018-06-07T00:28:58.677190",
-            "sender": "bob"}, 
-            {"uid": "ab5c08222ba14539b509a3a772512a92",
-            "text": "Later",
-            "group_uid": "E21293",
-            "story_uid": "IOTLANG",
-            "receiver": "messenger:2075608205815078",
-            "media_url": null,
-            "sent": "2018-07-07T00:28:58.677190",
-            "sender": "Dave"}]
+      messages: []
     }
   },
   computed: {
