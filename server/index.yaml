@@ -14,6 +14,12 @@ indexes:
 
 - kind: Message
   properties:
-  - name: user_uid
+  - name: sender
+  - name: sent
+    direction: desc
+
+- kind: Message
+  properties:
+  - name: receiver
   - name: sent
     direction: desc
