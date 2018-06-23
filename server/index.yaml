@@ -23,10 +23,3 @@ indexes:
   - name: receiver
   - name: sent
     direction: desc
-
-- kind: Message
-  properties:
-  - name: receiver
-  - name: sender
-  - name: sent
-    direction: desc
