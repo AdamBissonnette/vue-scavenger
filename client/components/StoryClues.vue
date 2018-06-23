@@ -94,7 +94,7 @@
     <div class="four wide column">
       <h3>Add / Edit Answers</h3>
         <div class="form ui">
-          <lginput id="answerName" label="Name" :value.sync="answer.uid" type="text" :disabled="clueNameUndefined"></lginput>
+          <lginput id="answerName" label="Name" :value.sync="answer.uid" type="text" :disabled="clueNameUndefined||inAnswerEditMode"></lginput>
           <lginput id="answerText" label="Pattern" :value.sync="answer.pattern" type="text" :disabled="clueNameUndefined"></lginput>
           <lginput id="answerMedia" label="Media" :value.sync="answer.require_media" type="checkbox" :disabled="clueNameUndefined"></lginput>
           <lginput id="answerNextClue" label="Next Clue" :value.sync="answer.next_clue" type="select" :items="story.clues" :disabled="clueNameUndefined"></lginput>
@@ -145,7 +145,10 @@ export default {
   },
   methods: {
     formatUID: function(UID) {
-      return UID.replace(/.+?:/, "")
+      return UID.replace(/.+?\:/g, "")
+    },
+    showSaveComplete: function() {
+      this.$dialog.alert("Save Complete!")
     },
     initClue: function() {
       this.clue = {
@@ -171,7 +174,7 @@ export default {
     },
     saveClue: function() {
       this.clue.uid = this.clue.uid.toUpperCase()
-      axios.put(`/api/clues/` + this.story.uid + ':' + this.clueUID, this.clue)
+      axios.put(`/api/clues/` + this.story.uid + ':' + this.clue.uid, this.clue)
       .then(response => {
         var uid = response.data.data.uid
 
@@ -180,14 +183,16 @@ export default {
           this.story.clues.push(uid)          
         }
 
-        this.initClue()
+        this.editClue(-1, uid)
+        this.showSaveComplete()
       })
       .catch(e => {
         this.errors.push(e)
       })
     },
-    editClue: function(index) {
-      axios.get(`/api/clues/` + this.story.clues[index])
+    editClue: function(index, uid) {
+      var target = (index == -1)?uid:this.story.clues[index]
+      axios.get(`/api/clues/` + target)
       .then(response => {
         this.editingClue = true
         response.data.data.uid = this.formatUID(response.data.data.uid)
@@ -195,16 +200,26 @@ export default {
       })
     },
     delClue: function(index) {
-      axios.delete(`/api/clues/` + this.story.clues[index])
-      .then(response => {
-        this.story.clues.splice(index, 1)
-      })
+      this.$dialog.confirm("If you delete this clue, it'll be gone forever.", {
+        loader: true
+          })
+          .then((dialog) => {
+              axios.delete(`/api/clues/` + this.story.clues[index])
+              .then(response => {
+                this.story.clues.splice(index, 1)
+                dialog.loading(false) // stops the proceed button's loader
+                dialog.close() // stops the loader and close the dialog
+              })
+          })
+          .catch(() => {
+              console.log('Delete aborted');
+          });
     },
     saveAnswer: function() {
       this.answer.clue_uid = this.clue.uid
       this.answer.story_uid = this.story.uid
-      this.answer.uid = this.clue.uid + ':' + this.answerUID.toUpperCase()
-      axios.put(`/api/answers/` + this.answer.uid, this.answer)
+      this.answer.uid = this.answer.uid.toUpperCase()
+      axios.put(`/api/answers/` + this.story.uid + ':' + this.clue.uid + ':' + this.answer.uid, this.answer)
       .then(response => {
         var uid = response.data.data.uid
 
@@ -213,13 +228,15 @@ export default {
           this.clue.answer_uids.push(uid)          
         }
 
-        this.initAnswer()
+        this.editAnswer(-1, uid)
+        this.showSaveComplete()
       })
       .catch(e => {
         this.errors.push(e)
       })
     },
-    editAnswer: function(index) {
+    editAnswer: function(index, uid) {
+      var target = (index == -1)?uid:this.clue.answer_uids[index]
       axios.get(`/api/answers/` + this.clue.answer_uids[index])
       .then(response => {
         this.editingAnswer = true
@@ -228,10 +245,20 @@ export default {
       })
     },
     delAnswer: function(index) {
-      axios.delete(`/api/answers/` + this.clue.answer_uids[index])
-      .then(response => {
-        this.clue.answer_uids.splice(index, 1)
-      })
+      this.$dialog.confirm("If you delete this answer, it'll be gone forever.", {
+        loader: true
+          })
+          .then((dialog) => {
+              axios.delete(`/api/answers/` + this.clue.answer_uids[index])
+              .then(response => {
+                this.clue.answer_uids.splice(index, 1)
+                dialog.loading(false) // stops the proceed button's loader
+                dialog.close() // stops the loader and close the dialog
+              })
+          })
+          .catch(() => {
+              console.log('Delete aborted');
+          });
     },
     saveStory: function() {
       axios.get(`/api/stories/` + this.story.uid)

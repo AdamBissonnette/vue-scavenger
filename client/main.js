@@ -9,6 +9,8 @@ import Header from '@/components/sub-components/Header'
 // import VueGoodTablePlugin from 'vue-good-table'
 // import 'vue-good-table/dist/vue-good-table.css'
 // Vue.use(VueGoodTablePlugin)
+import VuejsDialog from 'vuejs-dialog'
+Vue.use(VuejsDialog)
 
 require('../node_modules/semantic-ui-css/semantic.min.css')
 require('../node_modules/semantic-ui-css/semantic.min.js')
