@@ -96,7 +96,8 @@
         <div class="form ui">
           <lginput id="answerName" label="Name" :value.sync="answer.uid" type="text" :disabled="clueNameUndefined||inAnswerEditMode"></lginput>
           <lginput id="answerText" label="Pattern" :value.sync="answer.pattern" type="text" :disabled="clueNameUndefined"></lginput>
-          <lginput id="answerMedia" label="Media" :value.sync="answer.require_media" type="checkbox" :disabled="clueNameUndefined"></lginput>
+          <lginput id="answerReceiver" label="Receiver" placeholder="anyone" :value.sync="answer.receiver" type="text" :disabled="clueNameUndefined"></lginput>
+          <lginput id="answerMedia" label="Requires Media" :value.sync="answer.require_media" type="checkbox" :disabled="clueNameUndefined"></lginput>
           <lginput id="answerNextClue" label="Next Clue" :value.sync="answer.next_clue" type="select" :items="story.clues" :disabled="clueNameUndefined"></lginput>
           <button class="ui button" @click="saveAnswer" :disabled="clueNameUndefined">Save</button>
         </div>
@@ -168,7 +169,8 @@ export default {
         pattern: ".*",
         story_uid: "",
         clue_uid: "",
-        next_clue: ""
+        next_clue: "",
+        receiver: ""
       }
       this.editingAnswer = false
     },
@@ -275,6 +277,7 @@ export default {
         })
         .then(response => {
           this.story = response.data.data
+          this.showSaveComplete()
         })
       })
     },
@@ -293,7 +296,7 @@ label {display: block; margin: 10px 0;}
 p+ul {margin: 0 0 10px;}
 input#clueName, input#answerName {text-transform: uppercase;}
 select {
-  padding: .67857143em 1em;
+  padding: .67857143em 0.3em;
   font-size: 1em;
   border: 1px solid rgba(34,36,38,.15);
   border-radius: .28571429rem;
