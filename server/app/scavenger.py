@@ -23,6 +23,8 @@ JOIN_GROUP = 'JOIN_GROUP'
 RESTART = 'RESTART'
 ANSWER = 'ANSWER'
 REPEAT_CLUE = 'REPEAT_CLUE'
+STOP_MESSAGING = 'STOP_MESSAGING'
+START_MESSAGING = 'START_MESSAGING'
 
 # Response Types
 INFO = 'INFO'
@@ -72,7 +74,9 @@ def format_message(message, user, group):
 
 def determine_message_type(message):
     text = message.lower()
-    if text.startswith('start') or text.startswith('review'):
+    if text.startswith('stop'):
+        return STOP_MESSAGING
+    elif text.startswith('start') or text.startswith('review'):
         return START_STORY
     elif text.startswith('join'):
         return JOIN_GROUP
@@ -85,7 +89,9 @@ def determine_message_type(message):
 
 
 def perform_action(message_type, message, user, group):
-    if message_type == START_STORY:
+    if message_type == STOP_MESSAGING:
+        return stop_messaging(message, user, group)
+    elif message_type == START_STORY:
         return start_story(message, user, group)
     elif message_type == JOIN_GROUP:
         return join_group(message, user, group)
@@ -108,8 +114,16 @@ def repeat_clue(message, user, group):
         group=group,
     )
 
+def stop_messaging(message, user, group):
+    user.stop()
+    logging.info("stopping " + user.user_uid)
+    return Result(INFO, [], user, group)
 
 def start_story(message, user, group):
+    if user.stopped:
+        user.start()
+        logging.info("starting " + user.user_uid)
+
     match = regex_dotall(r'^(?:start|review) (?P<code>.+)', message.text.lower())
     if not match:
         logging.info("No start code provided")
@@ -232,21 +246,24 @@ class TwilioHandler(RequestHandler):
         response_type, messages, user, group = perform_action(message_type, user_message, user, group)
         responses = [format_message(m, user, group) for m in messages]
         logging.info('Responding with: %s', responses)
-        self.response.body = twiml_response(user, group, response_type, responses)
-        self.response.headers['Content-Type'] = 'text/xml'
-        logging.info('Responding: %s', self.response.body)
 
-        user_message.story_uid = group.story_uid if group else None
-        user_message.group_uid = group.uid if group else None
-        user_message.put()
+        if not user.stopped:
+            self.response.body = twiml_response(user, group, response_type, responses)
+            self.response.headers['Content-Type'] = 'text/xml'        
+            user_message.story_uid = group.story_uid if group else None
+            user_message.group_uid = group.uid if group else None
+            user_message.put()
 
-        ndb.put_multi([Message(receiver=from_phone,
-                               sender=to_phone,
-                               text=m.text,
-                               media_url=m.media_url,
-                               group_uid= group.uid if group else None,
-                               story_uid=group.story_uid if group else None)
-                       for m in responses])
+            ndb.put_multi([Message(receiver=from_phone,
+                                   sender=to_phone,
+                                   text=m.text,
+                                   media_url=m.media_url,
+                                   group_uid= group.uid if group else None,
+                                   story_uid=group.story_uid if group else None)
+                           for m in responses])
+            logging.info('Responding: %s', self.response.body)
+        else:
+            logging.info('User stopped so no respones is sent')
 
         if group:
             group.messaged_at = datetime.now()
@@ -254,4 +271,5 @@ class TwilioHandler(RequestHandler):
             user.group_uid = group.uid
         else:
             user.group_uid = None
+        user.messaged_at = datetime.now()
         user.put()

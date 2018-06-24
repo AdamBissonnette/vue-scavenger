@@ -18,9 +18,18 @@ class User(ndb.Model):
     data = ndb.JsonProperty(default={})
     registration_date = ndb.DateTimeProperty(auto_now_add=True)
     messaged_at = ndb.DateTimeProperty(auto_now_add=True)
+    stopped = ndb.BooleanProperty(default=False)
 
     def restart(self):
         self.data = {}
+
+    def start(self):
+        self.stopped = False
+        self.put()
+
+    def stop(self):
+        self.stopped = True
+        self.put()
 
     @property
     def group(self):
