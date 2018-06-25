@@ -20,6 +20,7 @@
     <div class="four wide column">
       <h3>Clue List</h3>
       <button class="ui icon button" @click="initClue"><i class="icon plus"></i> New Clue</button>
+      <button class="ui icon button" @click="saveClueOrder"><i class="icon list"></i> Save Order</button>
       <table class="ui red compact celled table">
         <thead>
           <tr>
@@ -27,7 +28,7 @@
             <th>Controls</th>
           </tr>
         </thead>
-        <tbody>
+        <draggable v-model="story.clues" :element="'tbody'">
           <tr v-for="(clue, index) in story.clues">
             <td>{{formatUID(clue)}}</td>
             <td>
@@ -35,7 +36,7 @@
               <button class="ui icon button" @click="delClue(index)"><i class="icon trash"></i></button>
             </td>
           </tr>
-        </tbody>
+        </draggable>
       </table>
     </div>
     <div class="four wide column">
@@ -53,6 +54,7 @@
       <h3>Answer List</h3>
       <!-- <h4>For This Clue</h4> -->
       <button class="ui icon button" @click="initAnswer"><i class="icon plus"></i> New Answer</button>
+      <button class="ui icon button" @click="saveAnswerOrder"><i class="icon list"></i> Save Order</button>
       <table class="ui red compact celled table">
         <thead>
           <tr>
@@ -60,7 +62,7 @@
             <th>Controls</th>
           </tr>
         </thead>
-        <tbody>
+        <draggable v-model="clue.answer_uids" :element="'tbody'">
           <tr class="answer" v-for="(answer, index) in clue.answer_uids">
             <td>{{formatUID(answer)}}</td>
             <td>
@@ -69,7 +71,7 @@
               <!-- <button class="ui icon button" click="editAnswer(index)"><i class="icon minus"></i></button> -->
             </td>
           </tr>
-        </tbody>
+        </draggable>
       </table>
       <!-- <h4>In This Story</h4>
       <table class="ui red compact celled table">
@@ -192,6 +194,20 @@ export default {
         this.errors.push(e)
       })
     },
+    saveAnswerOrder: function() {
+      this.clue.uid = this.clue.uid.toUpperCase()
+      axios.put(`/api/clues/` + this.story.uid + ':' + this.clue.uid, 
+      {
+        uid: this.clue.uid,
+        answer_uids: this.clue.answer_uids
+      })
+      .then(response => {
+        this.showSaveComplete()
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    },
     editClue: function(index, uid) {
       var target = (index == -1)?uid:this.story.clues[index]
       axios.get(`/api/clues/` + target)
@@ -274,6 +290,23 @@ export default {
           uid: this.story.uid,
           default_hint: this.story.default_hint,
           end_message: this.story.end_message,
+        })
+        .then(response => {
+          this.story = response.data.data
+          this.showSaveComplete()
+        })
+      })
+    },
+    saveClueOrder: function() {
+      axios.get(`/api/stories/` + this.story.uid)
+      .then(response => {
+        var gStory = response.data.data
+        gStory.clues = this.story.clues
+        this.story = gStory
+
+        axios.put(`/api/stories/` + this.story.uid, {
+          uid: this.story.uid,
+          clues: this.story.clues
         })
         .then(response => {
           this.story = response.data.data

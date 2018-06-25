@@ -10,12 +10,14 @@ import Header from '@/components/sub-components/Header'
 // import 'vue-good-table/dist/vue-good-table.css'
 // Vue.use(VueGoodTablePlugin)
 import VuejsDialog from 'vuejs-dialog'
+import draggable from 'vuedraggable'
 Vue.use(VuejsDialog)
 
 require('../node_modules/semantic-ui-css/semantic.min.css')
 require('../node_modules/semantic-ui-css/semantic.min.js')
 
 Vue.component('lginput', Input)
+Vue.component('draggable', draggable)
 Vue.component('lgheader', Header)
 Vue.config.productionTip = false
 

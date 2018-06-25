@@ -22,7 +22,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <draggable v-model="stories" :element="'tbody'">
           <tr class="story item" v-for="(story, index) in stories">
             <td>
               {{story.uid}}
@@ -32,7 +32,7 @@
               <button class="ui icon button" @click="delStory(index)"><i class="icon trash"></i></button>
             </td>
           </tr>
-        </tbody>
+        </draggable>
       </table>
     </div>
   </div>

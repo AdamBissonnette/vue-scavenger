@@ -23,6 +23,7 @@ ROUTES = [
         ResourceRoutes('groups', Group),
         ResourceRoutes('messages', Message),
         ResourceRoutes('users', User),
+        Route('/codes/generate', GenerateCodesHandler),
         ResourceRoutes('messages/story/<story_uid:[^/]+>', Message, method='for_story'),
         ResourceRoutes('messages/group/<group_uid:[^/]+>', Message, method='for_group'),
         ResourceRoutes('messages/user/<user_uid:[^/]+>', Message, method='for_user'),
