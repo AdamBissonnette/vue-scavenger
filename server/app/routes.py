@@ -27,6 +27,7 @@ ROUTES = [
         ResourceRoutes('messages/story/<story_uid:[^/]+>', Message, method='for_story'),
         ResourceRoutes('messages/group/<group_uid:[^/]+>', Message, method='for_group'),
         ResourceRoutes('messages/user/<user_uid:[^/]+>', Message, method='for_user'),
+        ResourceRoutes('answers/story/<story_uid:[^/]+>', Answer, method='for_story')
         ]),
     PathPrefixRoute('/admin', [
         Route('/backup', BackupHandler),

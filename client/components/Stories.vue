@@ -29,6 +29,7 @@
             </td>
             <td>
               <router-link class="ui button" :to="{ name: 'StoryClues', 'params': {uid: story.uid}}">Edit</router-link>
+              <router-link class="ui button" :to="{ name: 'StoryMap', 'params': {uid: story.uid}}">View Map</router-link>
               <button class="ui icon button" @click="delStory(index)"><i class="icon trash"></i></button>
             </td>
           </tr>

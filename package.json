@@ -69,7 +69,9 @@
     "semantic-ui-css": "^2.3.2",
     "vue-good-table": "^2.8.1",
     "vuejs-dialog": "0.9.0",
-    "vuedraggable": "2.16.0"
+    "vuedraggable": "2.16.0",
+    "vue-cytoscape": "0.1.1",
+    "cytoscape": "3.2.14"
   },
   "engines": {
     "node": ">= 6.0.0",

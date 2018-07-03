@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Stories from '@/components/Stories'
 import StoryClues from '@/components/StoryClues'
+import StoryMap from '@/components/StoryMap'
 import Messages from '@/components/Messages'
 import Group from '@/components/GroupMessages'
 import User from '@/components/UserMessages'
@@ -16,6 +17,11 @@ export default new Router({
       path: '/',
       name: 'Stories',
       component: Stories
+    },
+    {
+      path: '/storymap/:uid',
+      name: 'StoryMap',
+      component: StoryMap
     },
     {
       path: '/story/:uid',

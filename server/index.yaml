@@ -1,5 +1,10 @@
 indexes:
 
+- kind: Answer
+  properties:
+  - name: story_uid
+    direction: desc
+
 - kind: Message
   properties:
   - name: story_uid

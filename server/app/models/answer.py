@@ -51,3 +51,6 @@ class Answer(ndb.Model):
         clue.remove_answer(key.id())
         clue.put()
 
+    @classmethod
+    def for_story(cls, story_uid, limit=1000):
+        return cls.query(Answer.story_uid == story_uid).fetch(limit=limit)

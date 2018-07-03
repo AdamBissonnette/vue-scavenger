@@ -11,8 +11,14 @@ import Header from '@/components/sub-components/Header'
 // Vue.use(VueGoodTablePlugin)
 import VuejsDialog from 'vuejs-dialog'
 import draggable from 'vuedraggable'
+// import VueCytoscape from 'vue-cytoscape'
+// import 'vue-cytoscape/dist/vue-cytoscape.css'
+// Vue.use(VueCytoscape)
+
 Vue.use(VuejsDialog)
 
+// require('../node_modules/cytoscape/dist/cytoscape.js')
+// import 'cytoscape/dist/cytoscape.js'
 require('../node_modules/semantic-ui-css/semantic.min.css')
 require('../node_modules/semantic-ui-css/semantic.min.js')
 
