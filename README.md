@@ -25,6 +25,12 @@ npm run e2e
 
 # run all tests
 npm test
+
+# clear datastore
+dev_appserver.py server/ --clear_datastore true
+
+# deploy indexes
+gcloud app deploy server/index.yaml --project=vue-look-go
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
