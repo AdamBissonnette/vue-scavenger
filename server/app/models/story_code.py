@@ -31,6 +31,12 @@ class StoryCode(ndb.Model):
             self.used = True
             self.put()
 
+    def toJSON(self):
+        return {'word_string': self.word_string,
+                'used': str(self.used).lower(),
+                'single_use': str(self.single_use).lower(),
+                'story_uid': self.story_uid}
+
 
 def generate_codes(story_uid, amount, single_use):
     codes = []

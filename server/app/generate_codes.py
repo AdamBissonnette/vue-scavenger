@@ -29,5 +29,10 @@ class GenerateCodesHandler(RequestHandler):
             logging.error('story-uid, single-use, and amount are required')
             return self.abort(400, 'story-uid, single-use, and amount are required')
         codes = generate_codes(story_uid, json.loads(amount), json.loads(single_use))
-        self.response.headers['Content-Type'] = 'text'
-        self.response.body = str('\n'.join(c.word_string for c in codes))
+        self.response.headers['Content-Type'] = 'application/json'
+
+        output = []
+        for code in codes:
+            output.append(code.toJSON())
+
+        self.response.body = json.dumps(output, indent=2)
