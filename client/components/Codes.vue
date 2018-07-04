@@ -69,7 +69,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('/api/codes/')
+    axios.get('/api/codes/?paged=false')
     .then(response => {
       this.codes = response.data.data
     })

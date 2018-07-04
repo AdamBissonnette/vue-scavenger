@@ -87,10 +87,13 @@ export default {
   },
   computed: {
     sortedGroups: function () {
-      function compare(b, a) {
+      function createCompare(b, a) {
+        return new Date(a.created_at) - new Date(b.created_at); 
+      }
+      function messagedCompare(b, a) {
         return new Date(a.messaged_at) - new Date(b.messaged_at);
       }
-      return this.filteredGroupsBySearch.sort(compare);
+      return this.filteredGroupsBySearch.sort(createCompare).sort(messagedCompare);
     },
     filteredUsersBySearch: function () {
       return this.users.filter((user) => (
@@ -106,11 +109,11 @@ export default {
     },
   },
   mounted() {
-    axios.get('/api/groups/')
+    axios.get('/api/groups/?paged=false')
       .then(response => {
         this.groups = response.data.data;
       }),
-      axios.get('/api/users/')
+      axios.get('/api/users/?paged=false')
       .then(response => {
         this.users = response.data.data;
       })

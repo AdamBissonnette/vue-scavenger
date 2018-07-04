@@ -59,7 +59,7 @@ export default {
     filteredBySearch: function () {
       return this.messages.filter((message) => (
         message.text.toLowerCase().indexOf(this.textQuery.toLowerCase()) !== -1 &&
-         message.sender.toLowerCase().indexOf(this.senderQuery.toLowerCase()) !== -1
+         (message.sender?message.sender:"").toLowerCase().indexOf(this.senderQuery.toLowerCase()) !== -1
         )
       )
     }

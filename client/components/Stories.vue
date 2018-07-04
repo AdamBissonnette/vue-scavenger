@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('/api/stories/')
+    axios.get('/api/stories/?paged=false')
       .then(response => {
         this.stories = response.data.data;
       })
