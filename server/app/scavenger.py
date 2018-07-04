@@ -1,7 +1,7 @@
 from functools import partial
 import re
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import namedtuple
 
 from google.appengine.ext import ndb
@@ -243,6 +243,17 @@ class TwilioHandler(RequestHandler):
         message_type = determine_message_type(user_message.text)
         logging.info('Message of type: %s', message_type)
         group = user.group
+
+        if group is not None:
+            expiry_time = group.created_at + timedelta(hours=48)
+
+            if datetime.now() > expiry_time:
+                user.group_uid = None
+                group.completed_at = expiry_time
+                group.messaged_at = datetime.now()
+                group.put()
+                group = None
+ 
         response_type, messages, user, group = perform_action(message_type, user_message, user, group)
         responses = [format_message(m, user, group) for m in messages]
         logging.info('Responding with: %s', responses)
