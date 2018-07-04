@@ -95,7 +95,7 @@ def perform_action(message_type, message, user, group):
         return start_story(message, user, group)
     elif message_type == JOIN_GROUP:
         return join_group(message, user, group)
-    elif message_type == REPEAT_CLUE:
+    elif message_type == REPEAT_CLUE and group is not None:
         return repeat_clue(message, user, group)
     if not user.group_uid:
         return Result(response_type=INFO, messages=[HOW_TO_START], user=user, group=None)
