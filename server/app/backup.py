@@ -17,4 +17,4 @@ class BackupHandler(RequestHandler):
             'stories': stories,
             'clues': clues,
             'answers': answers,
-        }, indent=2)
+        }, indent=2, default=str)
