@@ -21,23 +21,20 @@
       <h3>Clue List</h3>
       <button class="ui icon button" @click="initClue"><i class="icon plus"></i> New Clue</button>
       <button class="ui icon button" @click="saveClueOrder"><i class="icon list"></i> Save Order</button>
-      <table class="ui red compact celled table">
+      <table class="ui blue compact table entity-list">
         <thead>
           <tr>
             <th>Clue</th>
             <th>Controls</th>
-            <th></th>
           </tr>
         </thead>
         <draggable v-model="story.clues" :element="'tbody'" :options="{handle:'.handle'}">
           <tr v-for="(clue, index) in story.clues">
             <td>{{formatUID(clue)}}</td>
             <td>
-              <button class="ui icon button" @click="editClue(index)"><i class="icon edit"></i></button>
-              <button class="ui icon button" @click="delClue(index)"><i class="icon trash"></i></button>
-            </td>
-            <td>
-              <button class="ui icon button handle"><i class="icon expand arrows alternate"></i></button>
+              <button class="ui icon button compact" @click="editClue(index)"><i class="icon edit"></i></button>
+              <button class="ui icon button compact" @click="delClue(index)"><i class="icon trash"></i></button>
+              <button class="ui icon button handle compact"><i class="icon expand arrows alternate"></i></button>
             </td>
           </tr>
         </draggable>
@@ -59,23 +56,20 @@
       <!-- <h4>For This Clue</h4> -->
       <button class="ui icon button" @click="initAnswer"><i class="icon plus"></i> New Answer</button>
       <button class="ui icon button" @click="saveAnswerOrder"><i class="icon list"></i> Save Order</button>
-      <table class="ui red compact celled table">
+      <table class="ui red compact table entity-list">
         <thead>
           <tr>
             <th>Answer</th>
             <th>Controls</th>
-            <th></th>
           </tr>
         </thead>
         <draggable v-model="clue.answer_uids" :element="'tbody'" :options="{handle:'.handle'}">
           <tr class="answer" v-for="(answer, index) in clue.answer_uids">
             <td>{{formatUID(answer)}}</td>
             <td>
-              <button class="ui icon button" @click="editAnswer(index)"><i class="icon edit"></i></button>
-              <button class="ui icon button" @click="delAnswer(index)"><i class="icon trash"></i></button>
-            </td>
-            <td>
-              <button class="ui icon button handle"><i class="icon expand arrows alternate"></i></button>
+              <button class="ui icon button compact" @click="editAnswer(index)"><i class="icon edit"></i></button>
+              <button class="ui icon button compact" @click="delAnswer(index)"><i class="icon trash"></i></button>
+              <button class="ui icon button handle compact"><i class="icon expand arrows alternate"></i></button>
               <!-- <button class="ui icon button" click="editAnswer(index)"><i class="icon minus"></i></button> -->
             </td>
           </tr>
@@ -347,4 +341,12 @@ select {
 .handle i:before {
   transform: rotate(45deg);
 }
+button.button.compact {
+  padding: 3px !important;
+  margin: 4px 0 0;
+}
+table.entity-list.table tr td:nth-of-type(2) {
+  padding: 0;
+}
+
 </style>
