@@ -28,7 +28,9 @@
             <td>{{message.sender}}</td>
             <td>{{message.receiver}}</td>
             <td>{{message.text}}</td>
-            <td>{{message.image}}</td>
+            <td>
+              <img :src="message.image" />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -74,8 +76,9 @@ export default {
         var xmlDoc = new DOMParser().parseFromString(response.data, "text/xml")
         var receiver = xmlDoc.getElementsByTagName("Message")[0].getAttribute("to")
         var body = xmlDoc.getElementsByTagName("Body")[0].innerHTML
-        var media = xmlDoc.getElementsByTagName("MediaUrl0")[0]
-        this.addMessage("", receiver, body, (typeof media !== "undefined"?media.innerHTML:""))
+        var media_url = xmlDoc.getElementsByTagName("Media")[0]
+        var media_url = (typeof media_url !== "undefined"?media_url.innerHTML:"")
+        this.addMessage("", receiver, body, media_url)
       })
     },
     addMessage: function (from, to, body, media){
@@ -89,3 +92,6 @@ export default {
   }
 }
 </script>
+<style>
+table img {width: 100%;}
+</style>

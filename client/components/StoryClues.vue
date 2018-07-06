@@ -47,7 +47,7 @@
         <lginput id="clueText" label="Text" :value.sync="clue.text" size="4"></lginput>
         <lginput id="clueHint" label="Hint" :value.sync="clue.hint" size="4"></lginput>
         <lginput id="clueSender" label="Sender" :value.sync="clue.sender" type="text"></lginput>
-        <lginput id="clueMedia" label="Media" :value.sync="clue.media" type="text"></lginput>
+        <lginput id="clueMedia" label="Media" :value.sync="clue.media_url" type="text"></lginput>
         <button class="ui button" @click="saveClue">Save</button>
       </div> 
     </div>
