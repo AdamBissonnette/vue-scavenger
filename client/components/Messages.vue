@@ -10,68 +10,72 @@
     </div>
     <div class="twelve wide column">
       <h3>Groups</h3>
-      <table class="ui red celled fixed table">
-        <thead>
-          <tr>
-            <th>Current Clue</th>
-            <th>User</th>
-            <th>Last Message</th>
-            <th>Date Started</th>
-            <th>Date Completed</th>
-            <th>Controls</th>
+      <div class="message-table-container">
+        <table class="ui red celled fixed table">
+          <thead>
+            <tr>
+              <th>Current Clue</th>
+              <th>User</th>
+              <th>Last Message</th>
+              <th>Date Started</th>
+              <th>Date Completed</th>
+              <th>Controls</th>
+            </tr>
+          </thead>
+          <tr v-for="group in sortedGroups">
+            <td>
+              {{group.clue_uid}}
+            </td>
+            <td>
+              <div v-for="key in group.user_keys">{{key}}</div>
+            </td>
+            <td>
+              {{group.messaged_at | formatDate}}
+            </td>
+            <td>
+              {{group.created_at | formatDate}}
+            </td>
+            <td>
+              {{group.completed_at | formatDate}}
+            </td>
+            <td>
+              <router-link class="ui button" :to="{ name: 'Group', 'params': {uid: group.uid}}">Transcript</router-link>
+            </td>
           </tr>
-        </thead>
-        <tr v-for="group in sortedGroups">
-          <td>
-            {{group.clue_uid}}
-          </td>
-          <td>
-            <div v-for="key in group.user_keys">{{key}}</div>
-          </td>
-          <td>
-            {{group.messaged_at | formatDate}}
-          </td>
-          <td>
-            {{group.created_at | formatDate}}
-          </td>
-          <td>
-            {{group.completed_at | formatDate}}
-          </td>
-          <td>
-            <router-link class="ui button" :to="{ name: 'Group', 'params': {uid: group.uid}}">Transcript</router-link>
-          </td>
-        </tr>
-      </table>
+        </table>
+      </div>
 
       <h3>Users</h3>
-      <table class="ui blue celled fixed table">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Group ID</th>
-            <th>Last Message</th>
-            <th>Date Started</th>
-            <th>Controls</th>
+      <div class="message-table-container">
+        <table class="ui blue celled fixed table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Group ID</th>
+              <th>Last Message</th>
+              <th>Date Started</th>
+              <th>Controls</th>
+            </tr>
+          </thead>
+          <tr v-for="user in filteredUsersBySearch">
+            <td>
+              {{user.user_uid}}
+            </td>
+            <td>
+              {{user.group_uid}}
+            </td>
+            <td>
+              {{user.messaged_at | formatDate}}
+            </td>
+            <td>
+              {{user.registration_date | formatDate}}
+            </td>
+            <td>
+              <router-link class="ui button" :to="{ name: 'User', 'params': {uid: user.user_uid}}">Transcript</router-link>
+            </td>
           </tr>
-        </thead>
-        <tr v-for="user in filteredUsersBySearch">
-          <td>
-            {{user.user_uid}}
-          </td>
-          <td>
-            {{user.group_uid}}
-          </td>
-          <td>
-            {{user.messaged_at | formatDate}}
-          </td>
-          <td>
-            {{user.registration_date | formatDate}}
-          </td>
-          <td>
-            <router-link class="ui button" :to="{ name: 'User', 'params': {uid: user.user_uid}}">Transcript</router-link>
-          </td>
-        </tr>
-      </table>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -120,3 +124,9 @@ export default {
   }
 }
 </script>
+<style>
+.message-table-container {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+</style>

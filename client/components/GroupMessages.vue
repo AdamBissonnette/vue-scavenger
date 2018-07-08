@@ -10,7 +10,7 @@
     </div>
     <div class="twelve wide column">
 
-      <table class="ui red celled fixed table">
+      <table class="ui red celled table">
         <thead>
           <tr>
             <th>Time</th>
@@ -71,5 +71,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+table img {
+  width: 100%;
+  margin-top: 15px;
+}
 </style>
