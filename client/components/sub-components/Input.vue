@@ -4,6 +4,9 @@
       <template v-if="type === 'text'">
         <input :id="id" :placeholder="placeholder" :disabled="disabled" type="text" :value="value" @input="$emit('update:value', $event.target.value)" />
       </template>
+      <template v-else-if="type === 'number'">
+        <input :id="id" :placeholder="placeholder" :disabled="disabled" type="number" :value="value" @input="$emit('update:value', $event.target.value)" />
+      </template>
       <template v-else-if="type === 'select'">
         <select :id="id" :disabled="disabled" :value="value" @input="$emit('update:value', $event.target.value)">
           <option v-for="item in items" :value="item">{{item}}</option>

@@ -6,9 +6,9 @@ import router from './router'
 import moment from 'moment'
 import Input from '@/components/sub-components/Input'
 import Header from '@/components/sub-components/Header'
-// import VueGoodTablePlugin from 'vue-good-table'
-// import 'vue-good-table/dist/vue-good-table.css'
-// Vue.use(VueGoodTablePlugin)
+import VueGoodTablePlugin from 'vue-good-table'
+import 'vue-good-table/dist/vue-good-table.css'
+Vue.use(VueGoodTablePlugin)
 import VuejsDialog from 'vuejs-dialog'
 import draggable from 'vuedraggable'
 // import VueCytoscape from 'vue-cytoscape'
