@@ -57,7 +57,7 @@
               <th>Controls</th>
             </tr>
           </thead>
-          <tr v-for="user in filteredUsersBySearch">
+          <tr v-for="user in sortedUsers">
             <td>
               {{user.user_uid}}
             </td>
@@ -97,7 +97,16 @@ export default {
       function messagedCompare(b, a) {
         return new Date(a.messaged_at) - new Date(b.messaged_at);
       }
-      return this.filteredGroupsBySearch.sort(createCompare).sort(messagedCompare);
+      return this.filteredGroupsBySearch.sort(createCompare).sort(messagedCompare)
+    },
+    sortedUsers: function () {
+      function createCompare(b, a) {
+        return new Date(a.created_at) - new Date(b.created_at); 
+      }
+      function messagedCompare(b, a) {
+        return new Date(a.messaged_at) - new Date(b.messaged_at);
+      }
+      return this.filteredUsersBySearch.sort(createCompare).sort(messagedCompare)
     },
     filteredUsersBySearch: function () {
       return this.users.filter((user) => (
