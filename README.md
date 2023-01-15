@@ -4,6 +4,8 @@
 
 ## Local Setup
 
+You'll need to have Node JS installed and the basics around npm to follow this:
+
 ```
 cd scavenger
 npm install
@@ -12,6 +14,22 @@ npm install -g webpack-dev-server
 ```
 
 Also ensure that the Python App-engine SDK (https://cloud.google.com/appengine/docs/standard/python/download) is installed.
+
+## Install Google Cloud SDK
+https://cloud.google.com/appengine/downloads
+
+## configure python2.7 on mac m1 (or in general w/ pyenv and brew)
+ala https://dev.to/jordicuevas/how-to-install-python2-in-a-macbook-m1-with-brew-bhi
+
+Run the following in your terminal - this will allow the dev_appserver.py to run
+
+* brew install pyenv
+* pyenv install 2.7.18
+* export PATH="$(pyenv root)/shims:${PATH}"
+* echo 'PATH=$(pyenv root)/shims:$PATH' >> ~/.zshrc
+* pyenv init
+* pyenv local 2.7.18
+
 
 ## Running it locally
 
@@ -23,7 +41,7 @@ npm run backend # In another terminal window
 Then navigate to http://localhost:8080 login in as an administrator in order to access the api endpoints
 Local development environment is available on http://localhost:3000
 
-## Build Setup
+## Build Setup & Helpful Commands
 
 ``` bash
 # install dependencies
